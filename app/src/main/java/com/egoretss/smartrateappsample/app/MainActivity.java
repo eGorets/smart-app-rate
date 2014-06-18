@@ -4,12 +4,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.egoretss.smartapprate.lib.SmartAppRate;
 import com.egoretss.smartapprate.lib.SmartSetting;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private SmartAppRate smartAppRate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +23,17 @@ public class MainActivity extends ActionBarActivity {
             smartSettingBuilder.setViewCount(1);
             smartSettingBuilder.setDialogHeader("Rate Us");
             smartSettingBuilder.setDialogMessage("Please rate!");
-        SmartAppRate.getInstance(this, smartSettingBuilder);
+        smartAppRate = SmartAppRate.getInstance(this, smartSettingBuilder);
     }
 
+
+    public void showButton(View view) {
+        smartAppRate.show();
+    }
+
+    public void resetButton(View view) {
+        smartAppRate.reset();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -24,6 +24,7 @@ public class SmartAppRate {
     private SharedPreferences sharedPreferences;
     private SmartSetting smartSetting;
     private Context context;
+    private AlertDialog.Builder dialog;
 
     private SmartAppRate(Context context, SmartSetting smartSetting) {
         this.smartSetting = smartSetting;
@@ -33,9 +34,11 @@ public class SmartAppRate {
 
         init(smartSetting);
 
+        dialog = initSmartDialog();
+
         if (decreaseOrUpdateViewCounterToShow()) {
 
-            initSmartDialog().show();
+            dialog.show();
 
             if (!smartSetting.getSmart()) {
                 SmartUtils.openPlayStore(context);
@@ -120,6 +123,9 @@ public class SmartAppRate {
         editOrApply(editor);
     }
 
+    public void show() {
+        dialog.show();
+    }
     public void openStore() {
         SmartUtils.openPlayStore(context);
     }

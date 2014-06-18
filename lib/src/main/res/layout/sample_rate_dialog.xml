@@ -22,6 +22,7 @@
         android:layout_weight="0.15"
         android:hint="leaves your comment here"
         android:gravity="left|top"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:text="show" />
 
 </LinearLayout>

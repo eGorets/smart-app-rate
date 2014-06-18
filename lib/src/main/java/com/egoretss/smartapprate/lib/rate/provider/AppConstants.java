@@ -1,7 +1,7 @@
 package com.egoretss.smartapprate.lib.rate.provider;
 
 /**
- * Created by prog-965 on 18.06.2014.
+ * Created by eGoretss on 18.06.2014.
  */
 public class AppConstants {
 
