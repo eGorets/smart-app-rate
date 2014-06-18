@@ -1,9 +1,16 @@
 package com.egoretss.smartapprate.lib;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RatingBar;
 
+import static com.egoretss.smartapprate.lib.rate.provider.AppConstants.RATING_LEVEL;
 import static com.egoretss.smartapprate.lib.rate.provider.AppConstants.USER_VIEW_COUNT;
 import static com.egoretss.smartapprate.lib.rate.provider.AppConstants.VIEW_COUNT;
 
@@ -27,11 +34,55 @@ public class SmartAppRate {
         init(smartSetting);
 
         if (decreaseOrUpdateViewCounterToShow()) {
+
+            initSmartDialog().show();
+
             if (!smartSetting.getSmart()) {
                 SmartUtils.openPlayStore(context);
             }
         }
 
+    }
+
+    private AlertDialog.Builder initSmartDialog() {
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View dialogLayout = inflater.inflate(R.layout.sample_rate_dialog, null);
+
+        final RatingBar ratingBar = (RatingBar) dialogLayout.findViewById(R.id.ratingBar);
+        final EditText commentView = (EditText) dialogLayout.findViewById(R.id.commentTextView);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(dialogLayout)
+            .setTitle(smartSetting.getDialogHeader())
+            .setMessage(smartSetting.getDialogMessage());
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                float stars = ratingBar.getRating();
+                if (stars >= RATING_LEVEL) {
+
+                    commentView.setVisibility(View.INVISIBLE);
+                } else {
+                    commentView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                float stars = ratingBar.getRating();
+                if (stars >= RATING_LEVEL) {
+                    openStore();
+                    // TODO sent message to google, mail or server
+                }
+            }
+        });
+        builder.setNegativeButton("Next time", null);
+
+        return builder;
     }
 
     private static SmartAppRate smartAppRate;
@@ -67,6 +118,10 @@ public class SmartAppRate {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(VIEW_COUNT, smartSetting.getViewCount());
         editOrApply(editor);
+    }
+
+    public void openStore() {
+        SmartUtils.openPlayStore(context);
     }
 
     private boolean decreaseOrUpdateViewCounterToShow() {

@@ -9,10 +9,14 @@ public class SmartSetting {
 
     private Integer viewCount = AppConstants.DEFAULT_COUNT;
 
+    private Integer ratingLevel = AppConstants.RATING_LEVEL;
+
     private String dialogHeader;
     private Integer dialogHeaderId;
 
     private String dialogMessage;
+
+    private String googleSheetUrl;
 
     private Boolean smart = true;
 
@@ -26,6 +30,26 @@ public class SmartSetting {
 
     public void setDialogHeader(String dialogHeader) {
         this.dialogHeader = dialogHeader;
+    }
+
+    public Integer getRatingLevel() {
+        return ratingLevel;
+    }
+
+    public void setRatingLevel(Integer ratingLevel) {
+        this.ratingLevel = ratingLevel;
+    }
+
+    public String getDialogHeader() {
+        return dialogHeader;
+    }
+
+    public Integer getDialogHeaderId() {
+        return dialogHeaderId;
+    }
+
+    public void setDialogHeaderId(Integer dialogHeaderId) {
+        this.dialogHeaderId = dialogHeaderId;
     }
 
     public void setDialogHeader(Integer stringId) {
@@ -46,5 +70,13 @@ public class SmartSetting {
 
     public void setSmart(Boolean smart) {
         this.smart = smart;
+    }
+
+    public String getGoogleSheetUrl() {
+        return googleSheetUrl;
+    }
+
+    public void setGoogleSheetUrl(String googleSheetUrl) {
+        this.googleSheetUrl = googleSheetUrl;
     }
 }
