@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import com.egoretss.smartapprate.lib.rate.provider.IRateNotifier;
+
 import static com.egoretss.smartapprate.lib.rate.provider.AppConstants.RATING_LEVEL;
 import static com.egoretss.smartapprate.lib.rate.provider.AppConstants.USER_VIEW_COUNT;
 import static com.egoretss.smartapprate.lib.rate.provider.AppConstants.VIEW_COUNT;
@@ -25,6 +27,8 @@ public class SmartAppRate {
     private SmartSetting smartSetting;
     private Context context;
     private AlertDialog.Builder dialog;
+
+    private IRateNotifier iRateNotifier;
 
     private SmartAppRate(Context context, SmartSetting smartSetting) {
         this.smartSetting = smartSetting;
@@ -65,7 +69,6 @@ public class SmartAppRate {
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 float stars = ratingBar.getRating();
                 if (stars >= RATING_LEVEL) {
-
                     commentView.setVisibility(View.INVISIBLE);
                 } else {
                     commentView.setVisibility(View.VISIBLE);
@@ -79,7 +82,10 @@ public class SmartAppRate {
                 float stars = ratingBar.getRating();
                 if (stars >= RATING_LEVEL) {
                     openStore();
-                    // TODO sent message to google, mail or server
+                } else {
+                    if (iRateNotifier != null){
+                        iRateNotifier.send(commentView.getText().toString());
+                    }
                 }
             }
         });
@@ -112,6 +118,9 @@ public class SmartAppRate {
         }
 
         editOrApply(editor);
+
+        iRateNotifier = smartSetting.getRateNotifier();
+
     }
 
     /**
@@ -126,6 +135,7 @@ public class SmartAppRate {
     public void show() {
         dialog.show();
     }
+
     public void openStore() {
         SmartUtils.openPlayStore(context);
     }

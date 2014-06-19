@@ -1,6 +1,7 @@
 package com.egoretss.smartapprate.lib;
 
 import com.egoretss.smartapprate.lib.rate.provider.AppConstants;
+import com.egoretss.smartapprate.lib.rate.provider.IRateNotifier;
 
 /**
  * Created by eGoretss on 18.06.2014.
@@ -8,17 +9,14 @@ import com.egoretss.smartapprate.lib.rate.provider.AppConstants;
 public class SmartSetting {
 
     private Integer viewCount = AppConstants.DEFAULT_COUNT;
-
     private Integer ratingLevel = AppConstants.RATING_LEVEL;
-
     private String dialogHeader;
     private Integer dialogHeaderId;
-
     private String dialogMessage;
-
     private String googleSheetUrl;
-
     private Boolean smart = true;
+    private IRateNotifier iRateNotifier;
+
 
     public Integer getViewCount() {
         return viewCount;
@@ -78,5 +76,13 @@ public class SmartSetting {
 
     public void setGoogleSheetUrl(String googleSheetUrl) {
         this.googleSheetUrl = googleSheetUrl;
+    }
+
+    public IRateNotifier getRateNotifier() {
+        return iRateNotifier;
+    }
+
+    public void setRateNotifier(IRateNotifier iRateNotifier) {
+        this.iRateNotifier = iRateNotifier;
     }
 }
