@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.egoretss.smartapprate.lib.SmartAppRate;
 import com.egoretss.smartapprate.lib.SmartSetting;
+import com.egoretss.smartapprate.lib.rate.provider.GoogleSheetNotifier;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -23,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
             smartSettingBuilder.setViewCount(1);
             smartSettingBuilder.setDialogHeader("Rate Us");
             smartSettingBuilder.setDialogMessage("Please rate!");
+            smartSettingBuilder.setRateNotifier(new GoogleSheetNotifier(""));
         smartAppRate = SmartAppRate.getInstance(this, smartSettingBuilder);
     }
 

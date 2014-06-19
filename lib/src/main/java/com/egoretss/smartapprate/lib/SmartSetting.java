@@ -13,7 +13,6 @@ public class SmartSetting {
     private String dialogHeader;
     private Integer dialogHeaderId;
     private String dialogMessage;
-    private String googleSheetUrl;
     private Boolean smart = true;
     private IRateNotifier iRateNotifier;
 
@@ -68,14 +67,6 @@ public class SmartSetting {
 
     public void setSmart(Boolean smart) {
         this.smart = smart;
-    }
-
-    public String getGoogleSheetUrl() {
-        return googleSheetUrl;
-    }
-
-    public void setGoogleSheetUrl(String googleSheetUrl) {
-        this.googleSheetUrl = googleSheetUrl;
     }
 
     public IRateNotifier getRateNotifier() {
